@@ -1,25 +1,22 @@
-name: Node CI
+name: CI
 
 on: [push]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
-
+    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 13.6.0
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        npm install
-        npm run-script build
+        node-version: 13.6.0
+    - name: Build and Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v2
       env:
-        CI: true
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BASE_BRANCH: master
+        BRANCH: gh-pages
+        FOLDER: dist/udemy-pw
+        BUILD_SCRIPT: npm install && npm run build -- --prod
