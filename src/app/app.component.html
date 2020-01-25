@@ -4,8 +4,8 @@
       <h1 class="title has-text-centered">Password Generator</h1>
 
       <div class="field">
-        <label>Length</label>
-        <input class="input" (input)="onChangeLength($event.target.value)" />
+        <label for="length">Length</label>
+        <input id="length" class="input" (input)="onChangeLength($event.target.value)" />
       </div>
 
       <div class="field">
@@ -41,9 +41,9 @@
         Generate!
       </button>
 
-      <div class="box">
-        <label>Your Password</label>
-        <input class="input" [value]="password" />
+      <div class="box" *ngIf="password">
+        <label for="password">Your Password</label>
+        <input id="password" class="input" [value]="password" />
       </div>
     </div>
   </div>
